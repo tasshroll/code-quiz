@@ -57,6 +57,13 @@ body {
     margin : 2rem;
 }
 
+.start-quiz:hover {
+    cursor:pointer;
+    box-shadow: inset;
+    transform: scale(1.02);
+    transform: transform 100ms;
+}
+
 .button-choices {
     /* cursor: grab; */
     min-height: 1rem;

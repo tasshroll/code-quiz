@@ -75,14 +75,14 @@ let qCounter = 0
 let timer = 75;
 const maxQs = availableQuestions.length;
 
-const questionEl = document.querySelectorAll('current-question');
+const questionEl = document.querySelector('#current-question');
 const choices = Array.from(document.querySelectorAll('choice-text'));
 // 4 choices are storred in array
-const choice1El = document.querySelectorAll('choice-1');
-const choice2El = document.querySelectorAll('choice-2');
-const choice3El = document.querySelectorAll('choice-3');
-const choice4El = document.querySelectorAll('choice-4');
-const responseEl = document.querySelectorAll('response');
+const choice1El = document.querySelector('#choice-1');
+const choice2El = document.querySelector('#choice-2');
+const choice3El = document.querySelector('#choice-3');
+const choice4El = document.querySelector('#choice-4');
+const responseEl = document.querySelector('#response');
 
 
 //* This is the MIDDLE part of appp *//
@@ -91,9 +91,8 @@ function playGame() {
 
     console.log("playing game")
     console.log("choice1El is ", choice1El);
-    debugger;
-    // Display a Question and Choices
-    if (timer === 0 || qCounter > maxQs) {
+    // Cycle through all questions - Display Question and its Choices
+    if (timer <= 0 || qCounter > maxQs) {
         start = false;
         middle = false;
         end = true;
@@ -104,72 +103,35 @@ function playGame() {
         console.log(availableQuestions[0].question);
         console.log(availableQuestions[0].choice1);
         questionEl.innerHTML = availableQuestions[qCounter].question;
-        choice1El.innerHTML = availableQuestions[qCounter].choice1;
+        choice1El.textContent = availableQuestions[qCounter].choice1;
         choice2El.innerText = availableQuestions[qCounter].choice2;
         choice3El.innerText = availableQuestions[qCounter].choice3;
         choice4El.innerText = availableQuestions[qCounter].choice4;
     }
 
     function checkAnswer(e) {
-        console.log("e is ", e, "availableQuestions[qCounter] is", availableQuestions[qCounter]);
-        if (e === availableQuestions[qCounter].correctAnswer) {
-            responseEl.textContent = "Correct";
+        console.log("User picked ", e.value, "availableQuestions[qCounter] is", availableQuestions[qCounter]);
+        if (e.value === availableQuestions[qCounter].correctAnswer) {
+            responseEl.innerText = "Correct";
         } else {
-            responseEl.textContent = "Wrong";
+            responseEl.innerHTML = "Wrong";
+            //* A wrong answer causes 10 seconds off timer
+            timer = timer -10;
         }
     }
 
-    // choice1El.addEventListener('click', checkAnswer(choice1El));
-    // choice2El.addEventListener('click', checkAnswer(choice2El));
-    // choice3El.addEventListener('click', checkAnswer(choice3El));
-    // choice4El.addEventListener('click', checkAnswer(choice4El));
+    //* Listen for user's choice  **/
+    debugger;
+    choice1El.addEventListener('click', checkAnswer(choice1El));
+    choice2El.addEventListener('click', checkAnswer(choice2El));
+    choice3El.addEventListener('click', checkAnswer(choice3El));
+    choice4El.addEventListener('click', checkAnswer(choice4El));
 
-
-    // choice1El.addEventListener('click', e => {
-    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
-    //         responseEl.innertext = "Correct";
-    //     } else {
-    //         responseEl.innertext = "Wrong";
-    //     }
-    // });
-    // choice2El.addEventListener('click', e => {
-    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
-    //         responseEl.innertext = "Correct";
-    //     } else {
-    //         responseEl.innertext = "Wrong";
-    //     }
-    // });
-    // choice3El.addEventListener('click', e => {
-    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
-    //         responseEl.innertext = "Correct";
-    //     } else {
-    //         responseEl.innertext = "Wrong";
-    //     }
-    // });
-    // choice4El.addEventListener('click', e => {
-    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
-    //         responseEl.innertext = "Correct";
-    //     } else {
-    //         responseEl.innertext = "Wrong";
-    //     }
-    // });
+    //* Decrement timer every second
+    var timerInterval = setInterval(function () {
+        timer --;
+    }, 1000)
 }
-
-
-
-// var generateBtn = document.querySelector("#generate");
-
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-//   passwordText.value = password;
-// }
-
-// generateBtn.addEventListener("click", writePassword);
-
-
-
 
 
 

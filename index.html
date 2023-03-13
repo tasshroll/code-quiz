@@ -10,27 +10,29 @@
 </head>
 
 <body>
-    <section id="start-page">
-        <!--Start Page-->
+    <header class="header-class">
+        <a id="high-scores" class="high-scores">High Scores</a>
+        <p class="timer" id="timer">Time</p>
+    </header>
 
-        <h1> Coding Quiz Challenge </h1>
-        <p> Try to answer the following code related questions within the time limit. <br>
-            Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-        <p>
-        <div>
-            <button class="start-quiz" id="start">Start Quiz</button>
+    <section class="container flex-column" id="start-page">
+        <!--Start Page-->
+        <div class="choices-class">
+
+            <h1 class="question-class">Coding Quiz Challenge </h1>
+            <p class="choices-class"> Try to answer the following code related questions within the time limit. <br>
+                Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+            </p>
+            <div>
+                <button class="button-choices start-quiz" id="start">Start Quiz</button>
+            </div>
         </div>
-    
+
     </section>
 
 
     <section id="middle-page">
         <!--Middle Quiz Page-->
-
-        <header class="header-class">
-            <a href=" end.html" id="high-scores" class="high-scores">High Scores</a>
-            <p class="timer" id="timer">Time</p>
-        </header>
 
         <div class="container">
 
@@ -42,15 +44,22 @@
                     <p class="button-choices" id="choice-3"></p>
                     <p class="button-choices" id="choice-4"></p>
                 </ol>
-                <h2 class="response"></h2>
+                <h2 id="response"></h2>
 
             </main>
         </div>
     </section #end>
 
 
-    <section id="end-page">
+    <section class="containerr" id="end-page">
         <!--High Scores Page-->
+        <h1> All Done! </h1>
+        <p> Your final score is: <br> </p>
+        <p> Enter Initials </p>
+        <form>
+            <textarea name="name" id="initials" cols="1" rows="1"></textarea>
+        </form>
+        <button class="start-quiz" id="start">Submit</button>
     </section>
 
 </body>
