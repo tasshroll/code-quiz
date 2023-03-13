@@ -2,6 +2,18 @@ body {
     color: #000;
 }
 
+#start {
+    display: block;
+}
+
+#middle {
+    display: block;
+}
+
+#end {
+    display: block;
+}
+
 .header-class {
     display:flex;
     flex-direction:row;
@@ -34,6 +46,16 @@ body {
     min-width:80rem;
 }
 
+.start-quiz {
+    /* cursor: grab; */
+    min-height: 1rem;
+    min-width: 20rem;
+    background-color: rgb(96, 1, 112);
+    color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin : 2rem;
+}
 
 .button-choices {
     /* cursor: grab; */

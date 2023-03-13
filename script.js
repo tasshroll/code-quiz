@@ -21,45 +21,7 @@
 // WHEN the game is over
 // THEN I can save my initials and my score
 
-
-
-// let questionObject = [
-//     {
-// 	Question: string;
-// 	Choice1: string;
-// 	Choice2: string;
-// 	Choice3: string;
-// 	Choice4: string;
-// 	CorrectAnswer: choiceNum;
-// }
-// ]
-
-// let questions = [
-//     {
-//         question: 'What is 2+2?',
-//         choice1: '2',
-//         choice2: '4',
-//         choice3: '21',
-//         choice4: '17',
-//         answer: 2,
-//     }
-// ]
-
-/* Create Array of 5 questions */
-//USE length property to create array
-// Var questions(...Array questionObject);
-
 //Global variables
-
-const questionEl = document.querySelectorAll('current-question');
-const choices = Array.from(document.querySelectorAll('choice-text'));
-// 4 choices are storred in array
-const choice1El = document.querySelectorAll('choice1');
-const choice2El = document.querySelectorAll('choice2');
-const choice3El = document.querySelectorAll('choice3');
-const choice4El = document.querySelectorAll('choice4');
-
-
 
 
 // Questions with choices and correct answer in an object property
@@ -113,8 +75,23 @@ let qCounter = 0
 let timer = 75;
 const maxQs = availableQuestions.length;
 
+const questionEl = document.querySelectorAll('current-question');
+const choices = Array.from(document.querySelectorAll('choice-text'));
+// 4 choices are storred in array
+const choice1El = document.querySelectorAll('choice-1');
+const choice2El = document.querySelectorAll('choice-2');
+const choice3El = document.querySelectorAll('choice-3');
+const choice4El = document.querySelectorAll('choice-4');
+const responseEl = document.querySelectorAll('response');
+
+
+//* This is the MIDDLE part of appp *//
 function playGame() {
+
+
     console.log("playing game")
+    console.log("choice1El is ", choice1El);
+    debugger;
     // Display a Question and Choices
     if (timer === 0 || qCounter > maxQs) {
         start = false;
@@ -122,46 +99,60 @@ function playGame() {
         end = true;
         endGame();
     } else {
-        debugger;
         qCounter++;
         console.log("Question Count is ", qCounter);
         console.log(availableQuestions[0].question);
-        console.log(availableQuestions[1].choice1);
-        questionEl.innerText = availableQuestions[qCounter].question;
-        choice1El.innerText = availableQuestions[qCounter].choice1;
+        console.log(availableQuestions[0].choice1);
+        questionEl.innerHTML = availableQuestions[qCounter].question;
+        choice1El.innerHTML = availableQuestions[qCounter].choice1;
         choice2El.innerText = availableQuestions[qCounter].choice2;
         choice3El.innerText = availableQuestions[qCounter].choice3;
         choice4El.innerText = availableQuestions[qCounter].choice4;
     }
-debugger;
-    choice1El.addEventListener('click', e => {
-        if (e.target === availableQuestions(qCounter).correctAnswer) {
-            responseEl.innertext = "Correct";
+
+    function checkAnswer(e) {
+        console.log("e is ", e, "availableQuestions[qCounter] is", availableQuestions[qCounter]);
+        if (e === availableQuestions[qCounter].correctAnswer) {
+            responseEl.textContent = "Correct";
         } else {
-            responseEl.innertext = "Wrong";
+            responseEl.textContent = "Wrong";
         }
-    });
-    choice2El.addEventListener('click', e => {
-        if (e.target === availableQuestions(qCounter).correctAnswer) {
-            responseEl.innertext = "Correct";
-        } else {
-            responseEl.innertext = "Wrong";
-        }
-    });
-    choice3El.addEventListener('click', e => {
-        if (e.target === availableQuestions(qCounter).correctAnswer) {
-            responseEl.innertext = "Correct";
-        } else {
-            responseEl.innertext = "Wrong";
-        }
-    });
-    choice4El.addEventListener('click', e => {
-        if (e.target === availableQuestions(qCounter).correctAnswer) {
-            responseEl.innertext = "Correct";
-        } else {
-            responseEl.innertext = "Wrong";
-        }
-    });
+    }
+
+    // choice1El.addEventListener('click', checkAnswer(choice1El));
+    // choice2El.addEventListener('click', checkAnswer(choice2El));
+    // choice3El.addEventListener('click', checkAnswer(choice3El));
+    // choice4El.addEventListener('click', checkAnswer(choice4El));
+
+
+    // choice1El.addEventListener('click', e => {
+    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
+    //         responseEl.innertext = "Correct";
+    //     } else {
+    //         responseEl.innertext = "Wrong";
+    //     }
+    // });
+    // choice2El.addEventListener('click', e => {
+    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
+    //         responseEl.innertext = "Correct";
+    //     } else {
+    //         responseEl.innertext = "Wrong";
+    //     }
+    // });
+    // choice3El.addEventListener('click', e => {
+    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
+    //         responseEl.innertext = "Correct";
+    //     } else {
+    //         responseEl.innertext = "Wrong";
+    //     }
+    // });
+    // choice4El.addEventListener('click', e => {
+    //     if (e.target === availableQuestions(qCounter).correctAnswer) {
+    //         responseEl.innertext = "Correct";
+    //     } else {
+    //         responseEl.innertext = "Wrong";
+    //     }
+    // });
 }
 
 
@@ -186,7 +177,8 @@ function displayStartPage() {
     console.log('Display Start Page');
     middle = true;
     start = false;
-    playGame();
+    var startBtn = document.querySelector("#start");
+    startBtn.addEventListener("click", playGame);
 }
 
 function endGame() {
@@ -207,17 +199,21 @@ function endGame() {
 
 
 
-
+//* Start is the initial display - TRUE to begin
+//* Middle is the code-Quiz with questions
+//* End is the time results & initials
 var start = true;
 var middle = false;
 var end = true;
 
 if (start) {
     displayStartPage();
-} else if (middle) {
-    debugger;
-    playGame();
-} else if (end) {
-    endGame();
 }
+
+// } else if (middle) {
+//     debugger;
+//     playGame();
+// } else if (end) {
+//     endGame();
+// }
 
