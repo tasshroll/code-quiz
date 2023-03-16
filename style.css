@@ -22,7 +22,7 @@ body {
 
 .container {
     width:100vw;
-    height:100vh;
+    height:70vh;
     display:flex;
     justify-content:center;
     align-items:left;
@@ -93,3 +93,26 @@ body {
     font-size:2rem;
 }
 
+.game-choice-class {
+    font-size:2rem;
+}
+.timer {
+    font-size:2rem;
+    padding-right: 40px;
+}
+
+h2 #response {
+    border-bottom: solid 10px black;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+.high-scores {
+font-size:2rem;
+padding-left: 40px;
+}

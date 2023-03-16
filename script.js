@@ -74,7 +74,7 @@ let currentQuestion = {};
 let qCounter = 0
 let timer = 75;
 const maxQs = availableQuestions.length;
-
+const startPage = document.querySelector('#start-page');
 const questionEl = document.querySelector('#current-question');
 const choices = Array.from(document.querySelectorAll('choice-text'));
 // 4 choices are storred in array
@@ -83,69 +83,182 @@ const choice2El = document.querySelector('#choice-2');
 const choice3El = document.querySelector('#choice-3');
 const choice4El = document.querySelector('#choice-4');
 const responseEl = document.querySelector('#response');
+var timerEl = document.querySelector('#timer');
+var timeLeftEl = document.querySelector('#time-left');
+
+var acceptingChoices;
+var end;
+
+var choiceBtn = document.querySelector('.game-choice-class');
+var startBtn = document.querySelector("#start");
 
 
+startBtn.addEventListener("click", function () {
+    console.log("AcceptingChoices is", acceptingChoices);
+    console.log("End is", end);
+    timer = 75;
+    acceptingChoices = true;
+    end = false;
+    console.log("AcceptingChoices is", acceptingChoices);
+    console.log("End is", end);
+    displayQuestion();
+});
 //* This is the MIDDLE part of appp *//
-function playGame() {
 
 
+
+// displayQuestion
+function displayQuestion() {
     console.log("playing game")
-    console.log("choice1El is ", choice1El);
     // Cycle through all questions - Display Question and its Choices
-    if (timer <= 0 || qCounter > maxQs) {
-        start = false;
-        middle = false;
-        end = true;
-        endGame();
+    console.log("Question Count is ", qCounter);
+    questionEl.innerHTML = availableQuestions[qCounter].question;
+    choice1El.textContent = availableQuestions[qCounter].choice1;
+    choice2El.innerText = availableQuestions[qCounter].choice2;
+    choice3El.innerText = availableQuestions[qCounter].choice3;
+    choice4El.innerText = availableQuestions[qCounter].choice4;
+}
+
+
+// function getNextQuestion {
+//     qCounter++
+//     playGame;
+// }
+
+
+
+// function checkAnswer(event) {
+//     console.log("User picked ", event.target.value, "availableQuestions[qCounter] is", availableQuestions[qCounter].correctAnswer);
+//     event.preventDefault();
+//     if (event.target.value === availableQuestions[qCounter].correctAnswer) {
+//         responseEl.innerText = "Correct";
+//     } else {
+//         responseEl.innerHTML = "Wrong";
+//         //* A wrong answer causes 10 seconds off timer
+//         timer = timer - 10;
+//     }
+// }
+
+choiceBtn.addEventListener("click", function (event) {
+    //Check if user choice is correct
+    var choice = event.target;
+    var userAnswer = choice.innerHTML;
+    console.log("choice clicked is ", userAnswer);
+
+    if (userAnswer === availableQuestions[qCounter].correctAnswer) {
+        console.log("CORRECT answer!!!")
+        responseEl.innerText = "Correct";
     } else {
-        qCounter++;
-        console.log("Question Count is ", qCounter);
-        console.log(availableQuestions[0].question);
-        console.log(availableQuestions[0].choice1);
-        questionEl.innerHTML = availableQuestions[qCounter].question;
-        choice1El.textContent = availableQuestions[qCounter].choice1;
-        choice2El.innerText = availableQuestions[qCounter].choice2;
-        choice3El.innerText = availableQuestions[qCounter].choice3;
-        choice4El.innerText = availableQuestions[qCounter].choice4;
+        console.log("Wrong answer")
+        responseEl.innerText = "Wrong";
+        timer = timer - 10;
     }
 
-    function checkAnswer(e) {
-        console.log("User picked ", e.value, "availableQuestions[qCounter] is", availableQuestions[qCounter]);
-        if (e.value === availableQuestions[qCounter].correctAnswer) {
-            responseEl.innerText = "Correct";
-        } else {
-            responseEl.innerHTML = "Wrong";
-            //* A wrong answer causes 10 seconds off timer
-            timer = timer -10;
+
+    //* While game is in progress, Decrement timer every second
+    var timerInterval = setInterval(function () {
+        timer--;
+        timerEl.innerText = timer;
+        console.log("Timer El is ", timerEl);
+        //stop game if timer reaches 0
+        if (timer <= 0) {
+            clearInterval(timerInterval);
+            end = true;
+            acceptingChoices = false;
+            endGame;
+        }
+    }, 1000)
+    
+    // Display next question if there are more
+    if (qCounter < maxQs - 1) {
+        qCounter++;
+        displayQuestion();
+    } else {
+        acceptingChoices = false;
+        end = true;
+        endGame();
+    }
+
+});
+
+
+if (end) {
+    endGame;
+} else if (acceptingChoices) {
+    console.log("TIMER is ", timer);
+
+    //* While game is in progress, Decrement timer every second
+    var timerInterval = setInterval(function () {
+        timer--;
+        timerEl.innerText = timer;
+        //stop game if timer reaches 0
+        if (timer <= 0) {
+            clearInterval(timerInterval);
+            end = true;
+            acceptingChoices = false;
+            endGame;
+        }
+    }, 1000)
+
+}
+
+// choice1El.addEventListener("click", function (event) {
+//     console.log("Event is", event.target.innerHTML);
+//     var choice = event.target.innerHTML;
+//     var correctAnswer = availableQuestions[qCounter].correctAnswer;
+//     console.log("User picked ", choice1El.innerHTML, "availableQuestions[qCounter] is", availableQuestions[qCounter].correctAnswer);
+//     debugger;
+//     event.preventDefault();
+//     if (choice === correctAnswer) {
+//         console.log("CORRECT answer!!!")
+//         responseEl.innerText = "Correct";
+//         $('#response').css('border-bottom', 'bold 10px');
+//     } else {
+//         console.log("Wrong answer")
+//         responseEl.innerText = "Wrong";
+//         $('#response').css('border-bottom', 'bold 10px');
+//         timer = timer - 10;
+//     }
+//     console.log("responseEl is", responseEl.innerText);
+//     // renderLastRegistered();
+// });
+//2:45 3-13 ZOOM    21 iNS local storage  8:45pm
+// JSON.stringify(highschores)
+// Will need this for high scores
+//JSON is very impportant to being a developer
+//
+
+// highscores is dynamic array appending user initials and highscores
+function endGame() {
+    console.log("end game")
+    // debugger;
+    console.log("Your Score is ", timer);
+    timeLeftEl.innerHTML = timer;
+
+    let highscores = [
+        {
+            initials: "",
+            score: 0,
+        }
+    ]
+
+    // Retreive high scores from prior games
+    var data = JSON.parse(localStorage.getItem("data"));
+    if (!data) {
+        data = {
+            initials: "John Doe",
+            score: 44,
         }
     }
 
-    //* Listen for user's choice  **/
-    debugger;
-    choice1El.addEventListener('click', checkAnswer(choice1El));
-    choice2El.addEventListener('click', checkAnswer(choice2El));
-    choice3El.addEventListener('click', checkAnswer(choice3El));
-    choice4El.addEventListener('click', checkAnswer(choice4El));
-
-    //* Decrement timer every second
-    var timerInterval = setInterval(function () {
-        timer --;
-    }, 1000)
 }
 
+// function displayStartPage() {
+//     console.log('Display Start Page');
+//     middle = true;
+//     start = false;
+// }
 
-
-function displayStartPage() {
-    console.log('Display Start Page');
-    middle = true;
-    start = false;
-    var startBtn = document.querySelector("#start");
-    startBtn.addEventListener("click", playGame);
-}
-
-function endGame() {
-    console.log('Ending game');
-}
 
 
 
@@ -159,23 +272,57 @@ function endGame() {
 // })
 
 
-
-
 //* Start is the initial display - TRUE to begin
 //* Middle is the code-Quiz with questions
 //* End is the time results & initials
-var start = true;
-var middle = false;
-var end = true;
 
-if (start) {
-    displayStartPage();
-}
+
+// if (start) {
+//     console.log("Start is", start);
+//     console.log("AcceptingChoices is", acceptingChoices);
+//     console.log("Middle is", middle);
+//     console.log("End is", end);
+
+//     timer = 75;
+//     start = false;
+//     middle = true;
+//     end = false;
+//     acceptingChoices = false;
+// }
+
+// } else if (acceptingChoices) {
+//     console.log("AcceptingChoices and playing game");
+//     debugger;
+//     playGame;
+// } else if (end) {
+//     acceptingChoices = false;
+//     start = false;
+//     middle = false;
+//     end = true;
+//     endGame;
+// }
+
+// $('#start-page').show;
+
+// Use jQuery to show/hide each section of the game
+// if (start) {
+    // $('#middle-page').hide;
+    // $('#end-page').hide;
+
+    // startPage.setAttribute("class", "show");
+//     displayStartPage();
+// }
 
 // } else if (middle) {
+    // $('#start-page').hide;
+        // $('#middle-page').show;
+
 //     debugger;
 //     playGame();
 // } else if (end) {
+// $('#middle-page').hide;
+// $('#end-page').show;
+
 //     endGame();
 // }
 

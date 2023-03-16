@@ -12,7 +12,7 @@
 <body>
     <header class="header-class">
         <a id="high-scores" class="high-scores">High Scores</a>
-        <p class="timer" id="timer">Time</p>
+        <p class="timer" id="timer">Timer :</p>
     </header>
 
     <section class="container flex-column" id="start-page">
@@ -36,31 +36,34 @@
 
         <div class="container">
 
-            <main class="choices-class" id="choices">
+            <main class="game-choice-class" id="choices">
                 <h1 class="question-class" id="current-question">Question</h1>
                 <ol>
-                    <p class="button-choices" id="choice-1"></p>
-                    <p class="button-choices" id="choice-2"></p>
-                    <p class="button-choices" id="choice-3"></p>
-                    <p class="button-choices" id="choice-4"></p>
+                    <p class="button-choices" data-number="1" id="choice-1"></p>
+                    <p class="button-choices" data-number="2" id="choice-2"></p>
+                    <p class="button-choices" data-number="3" id="choice-3"></p>
+                    <p class="button-choices" idata-number="4" id="choice-4"></p>
                 </ol>
-                <h2 id="response"></h2>
+                <h2 id="response">Response</h2>
 
             </main>
         </div>
     </section #end>
 
+    <section class="container flex-column" id="end-page">
+        <div class="choices-class">
 
-    <section class="containerr" id="end-page">
-        <!--High Scores Page-->
-        <h1> All Done! </h1>
-        <p> Your final score is: <br> </p>
-        <p> Enter Initials </p>
-        <form>
-            <textarea name="name" id="initials" cols="1" rows="1"></textarea>
-        </form>
-        <button class="start-quiz" id="start">Submit</button>
+            <!--High Scores Page-->
+            <h1 class="question-class"> All Done! </h1>
+            <p class="question-class"> Your final score is: </p>
+            <p id="time-left">Time</p>
+            <p class="question-class"> Enter Initials </p>
+            <form>
+                <textarea name="name" id="initials" cols="1" rows="1"></textarea>
+            </form>
+            <button class="start-quiz" id="start">Submit</button>
     </section>
+    </div>
 
 </body>
 <script src="script.js"></script>
