@@ -75,6 +75,12 @@ let qCounter = 0
 let timer = 75;
 const maxQs = availableQuestions.length;
 const startPage = document.querySelector('#start-page');
+const middlePage = document.querySelector('#middle-page');
+const endPage = document.querySelector('#end-page');
+const highScorePage = document.querySelector('#high-score-page');
+const scoreTimer = document.querySelector('#score-timer');
+
+
 const questionEl = document.querySelector('#current-question');
 const choices = Array.from(document.querySelectorAll('choice-text'));
 // 4 choices are storred in array
@@ -85,27 +91,65 @@ const choice4El = document.querySelector('#choice-4');
 const responseEl = document.querySelector('#response');
 var timerEl = document.querySelector('#timer');
 var timeLeftEl = document.querySelector('#time-left');
+const initialsEl = document.querySelector('#initials2');
+const scoreEl = document.querySelector('#score');
+const resultEl = document.querySelector('#result');
+
 
 var acceptingChoices;
 var end;
 
 var choiceBtn = document.querySelector('.game-choice-class');
 var startBtn = document.querySelector("#start");
+var saveBtn = document.querySelector("#save");
+var resetBtn = document.querySelector("#reset");
 
+
+
+function init() {
+    debugger;
+    startBtn.disabled = false;
+    startPage.setAttribute("class", "show");
+    middlePage.setAttribute("class", "hide");
+    endPage.setAttribute("class", "hide");
+    highScorePage.setAttribute("class", "hide");
+    scoreTimer.setAttribute("class", "show");
+    scoreTimer.setAttribute("class", "header-class");
+
+    end = false;
+    timer = 75;
+}
 
 startBtn.addEventListener("click", function () {
+    event.preventDefault();
     console.log("AcceptingChoices is", acceptingChoices);
     console.log("End is", end);
-    timer = 75;
     acceptingChoices = true;
-    end = false;
-    console.log("AcceptingChoices is", acceptingChoices);
-    console.log("End is", end);
     displayQuestion();
+    //* While game is in progress, Decrement timer every second
+    startTimer();
+    startPage.setAttribute("class", "hide");
+    middlePage.setAttribute("class", "show");
+
+
 });
-//* This is the MIDDLE part of appp *//
 
-
+function startTimer() {
+    startBtn.disabled = true;
+    var timerInterval = setInterval(function () {
+        timer--;
+        timerEl.innerText = "Timer: " + timer;
+        console.log("Timer El is ", timerEl);
+        //stop game if timer reaches 0
+        if (timer <= 0 || end) {
+            clearInterval(timerInterval);
+            end = true;
+            acceptingChoices = false;
+            middlePage.setAttribute("class", "hide");
+            endGame;
+        }
+    }, 1000)
+}
 
 // displayQuestion
 function displayQuestion() {
@@ -119,210 +163,130 @@ function displayQuestion() {
     choice4El.innerText = availableQuestions[qCounter].choice4;
 }
 
-
-// function getNextQuestion {
-//     qCounter++
-//     playGame;
-// }
-
-
-
-// function checkAnswer(event) {
-//     console.log("User picked ", event.target.value, "availableQuestions[qCounter] is", availableQuestions[qCounter].correctAnswer);
-//     event.preventDefault();
-//     if (event.target.value === availableQuestions[qCounter].correctAnswer) {
-//         responseEl.innerText = "Correct";
-//     } else {
-//         responseEl.innerHTML = "Wrong";
-//         //* A wrong answer causes 10 seconds off timer
-//         timer = timer - 10;
-//     }
-// }
-
-choiceBtn.addEventListener("click", function (event) {
-    //Check if user choice is correct
+function checkAnswer() {
     var choice = event.target;
     var userAnswer = choice.innerHTML;
     console.log("choice clicked is ", userAnswer);
-
     if (userAnswer === availableQuestions[qCounter].correctAnswer) {
         console.log("CORRECT answer!!!")
-        responseEl.innerText = "Correct";
+        responseEl.innerText = "Correct!";
     } else {
         console.log("Wrong answer")
-        responseEl.innerText = "Wrong";
+        responseEl.innerText = "Wrong!";
         timer = timer - 10;
     }
+}
 
 
-    //* While game is in progress, Decrement timer every second
-    var timerInterval = setInterval(function () {
-        timer--;
-        timerEl.innerText = timer;
-        console.log("Timer El is ", timerEl);
-        //stop game if timer reaches 0
-        if (timer <= 0) {
-            clearInterval(timerInterval);
-            end = true;
-            acceptingChoices = false;
-            endGame;
-        }
-    }, 1000)
-    
-    // Display next question if there are more
+choiceBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    //Check if user choice is correct
+
+    checkAnswer();
+    // Display next question
     if (qCounter < maxQs - 1) {
         qCounter++;
         displayQuestion();
     } else {
+        middlePage.setAttribute("class", "hide");
         acceptingChoices = false;
         end = true;
         endGame();
     }
-
 });
 
 
-if (end) {
-    endGame;
-} else if (acceptingChoices) {
-    console.log("TIMER is ", timer);
-
-    //* While game is in progress, Decrement timer every second
-    var timerInterval = setInterval(function () {
-        timer--;
-        timerEl.innerText = timer;
-        //stop game if timer reaches 0
-        if (timer <= 0) {
-            clearInterval(timerInterval);
-            end = true;
-            acceptingChoices = false;
-            endGame;
-        }
-    }, 1000)
-
-}
-
-// choice1El.addEventListener("click", function (event) {
-//     console.log("Event is", event.target.innerHTML);
-//     var choice = event.target.innerHTML;
-//     var correctAnswer = availableQuestions[qCounter].correctAnswer;
-//     console.log("User picked ", choice1El.innerHTML, "availableQuestions[qCounter] is", availableQuestions[qCounter].correctAnswer);
-//     debugger;
-//     event.preventDefault();
-//     if (choice === correctAnswer) {
-//         console.log("CORRECT answer!!!")
-//         responseEl.innerText = "Correct";
-//         $('#response').css('border-bottom', 'bold 10px');
-//     } else {
-//         console.log("Wrong answer")
-//         responseEl.innerText = "Wrong";
-//         $('#response').css('border-bottom', 'bold 10px');
-//         timer = timer - 10;
-//     }
-//     console.log("responseEl is", responseEl.innerText);
-//     // renderLastRegistered();
-// });
-//2:45 3-13 ZOOM    21 iNS local storage  8:45pm
-// JSON.stringify(highschores)
-// Will need this for high scores
-//JSON is very impportant to being a developer
-//
-
-// highscores is dynamic array appending user initials and highscores
 function endGame() {
+    //Display the ending page with score/timer and prompt for user to enter their initials
+    endPage.setAttribute("class", "show");
+    highScorePage.setAttribute("class", "hide");
     console.log("end game")
-    // debugger;
     console.log("Your Score is ", timer);
     timeLeftEl.innerHTML = timer;
+}
 
-    let highscores = [
-        {
-            initials: "",
-            score: 0,
-        }
-    ]
 
-    // Retreive high scores from prior games
-    var data = JSON.parse(localStorage.getItem("data"));
+function saveData() {
+    const initials = document.getElementById("initials").value;
+    const score = timer; // Highscore for this game
+
+    // highscores is dynamic array appending user initials and highscores
+    // make object holding the user initial and highscore
+    const highscores =
+    {
+        initials: initials,
+        score: score
+    };
+
+    // Convert the object highscores to a JSON string
+    const jsonData = JSON.stringify(highscores);
+    console.log("Setting localStorage now look at debugger for key", jsonData)
+    // Save the data to localStorage
+    localStorage.setItem("quizData", jsonData);
+}
+
+
+saveBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    // User has entered  initials and clicked "submit" 
+    // store their data
+    saveData();
+    displayHighScores();
+});
+
+function displayHighScores() {
+    console.log("Display High Scores")
+    endPage.setAttribute("class", "hide");
+    highScorePage.setAttribute("class", "show");
+    scoreTimer.setAttribute("class", "hide");
+
+    // Display all high scores
+    // Get data from localStorage
+    const jsonData = localStorage.getItem("quizData");
+    console.log("jsonData quizData is ", jsonData)
+    // Convert the JSON string to an object
+    const data = JSON.parse(jsonData);
     if (!data) {
+        console.log("no data retreived from JSON.parse")
         data = {
             initials: "John Doe",
             score: 44,
         }
     }
+    // Output initials and score
+    initialsEl.innerText = data.initials + " - ";
+    // if (initialsEl.innerText !== "") {
+    //     var newItem = $("<li>").text(initialsEl);
+    //     resultEl.append(newItem);
+    // }
 
+    scoreEl.innerText = data.score;
+    console.log(data.initials); // logs the initials
+    console.log(data.score); // logs the score
 }
 
-// function displayStartPage() {
-//     console.log('Display Start Page');
-//     middle = true;
-//     start = false;
-// }
+
+resetBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    //User has clicked either GO BACK or CLEAR HIGH SCORES
+    var choice = event.target;
+    var userAction = choice.innerHTML;
+    console.log("User wants to ", userAction);
+    highScorePage.setAttribute("class", "hide");
+
+    if (userAction = "Go Back") {
+        console.log("Go Back to start of game")
+        init();
+    } else if (userAction = "Clear High Scores") {}
+    {//CLEAR HIGH SCORES
+        console.log("Add code to clear high scores")
+        displayHighScores();
+    }
+});
 
 
-
-
-//Receive users input and check if it is correct answer to question
-// choices(1).addEventListener ('click', e => {
-//     const selectedChoice = e.target
-//     if (e.target == availableQuestions(qCounter).correctAnswer) {
-//         null;
-//     } else
-//      null;
-// })
-
-
-//* Start is the initial display - TRUE to begin
-//* Middle is the code-Quiz with questions
-//* End is the time results & initials
-
-
-// if (start) {
-//     console.log("Start is", start);
-//     console.log("AcceptingChoices is", acceptingChoices);
-//     console.log("Middle is", middle);
-//     console.log("End is", end);
-
-//     timer = 75;
-//     start = false;
-//     middle = true;
-//     end = false;
-//     acceptingChoices = false;
-// }
-
-// } else if (acceptingChoices) {
-//     console.log("AcceptingChoices and playing game");
-//     debugger;
-//     playGame;
-// } else if (end) {
-//     acceptingChoices = false;
-//     start = false;
-//     middle = false;
-//     end = true;
-//     endGame;
-// }
-
-// $('#start-page').show;
-
-// Use jQuery to show/hide each section of the game
-// if (start) {
-    // $('#middle-page').hide;
-    // $('#end-page').hide;
-
-    // startPage.setAttribute("class", "show");
-//     displayStartPage();
-// }
-
-// } else if (middle) {
-    // $('#start-page').hide;
-        // $('#middle-page').show;
-
-//     debugger;
-//     playGame();
-// } else if (end) {
-// $('#middle-page').hide;
-// $('#end-page').show;
-
-//     endGame();
-// }
+init();
 
