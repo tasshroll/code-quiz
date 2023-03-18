@@ -107,7 +107,6 @@ var resetBtn = document.querySelector("#reset");
 
 
 function init() {
-    debugger;
     startBtn.disabled = false;
     startPage.setAttribute("class", "show");
     middlePage.setAttribute("class", "hide");
@@ -115,7 +114,7 @@ function init() {
     highScorePage.setAttribute("class", "hide");
     scoreTimer.setAttribute("class", "show");
     scoreTimer.setAttribute("class", "header-class");
-
+    qCounter = 0;
     end = false;
     timer = 75;
 }
@@ -136,6 +135,8 @@ startBtn.addEventListener("click", function () {
 
 function startTimer() {
     startBtn.disabled = true;
+    choiceBtn.disabled = false;
+
     var timerInterval = setInterval(function () {
         timer--;
         timerEl.innerText = "Timer: " + timer;
@@ -192,6 +193,9 @@ choiceBtn.addEventListener("click", function (event) {
         middlePage.setAttribute("class", "hide");
         acceptingChoices = false;
         end = true;
+        choiceBtn.disabled = true;
+        saveBtn.disabled = false;
+        resetBtn.disabled = false;
         endGame();
     }
 });
@@ -224,6 +228,7 @@ function saveData() {
     console.log("Setting localStorage now look at debugger for key", jsonData)
     // Save the data to localStorage
     localStorage.setItem("quizData", jsonData);
+    debugger;
 }
 
 
@@ -232,6 +237,7 @@ saveBtn.addEventListener("click", function (event) {
 
     // User has entered  initials and clicked "submit" 
     // store their data
+    saveBtn.disabled = true;
     saveData();
     displayHighScores();
 });
@@ -241,7 +247,6 @@ function displayHighScores() {
     endPage.setAttribute("class", "hide");
     highScorePage.setAttribute("class", "show");
     scoreTimer.setAttribute("class", "hide");
-
     // Display all high scores
     // Get data from localStorage
     const jsonData = localStorage.getItem("quizData");
@@ -271,6 +276,7 @@ function displayHighScores() {
 resetBtn.addEventListener("click", function (event) {
     event.preventDefault();
 
+    resetBtn.disabled = true;
     //User has clicked either GO BACK or CLEAR HIGH SCORES
     var choice = event.target;
     var userAction = choice.innerHTML;
@@ -280,8 +286,8 @@ resetBtn.addEventListener("click", function (event) {
     if (userAction = "Go Back") {
         console.log("Go Back to start of game")
         init();
-    } else if (userAction = "Clear High Scores") {}
-    {//CLEAR HIGH SCORES
+    } else if (userAction = "Clear High Scores") {
+        //CLEAR HIGH SCORES
         console.log("Add code to clear high scores")
         displayHighScores();
     }
