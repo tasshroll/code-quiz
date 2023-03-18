@@ -102,7 +102,7 @@ var end;
 var choiceBtn = document.querySelector('.game-choice-class');
 var startBtn = document.querySelector("#start");
 var saveBtn = document.querySelector("#save");
-var resetBtn = document.querySelector("#reset");
+var resetBtn = document.querySelector("#re-set");
 
 
 
@@ -212,25 +212,31 @@ function endGame() {
 
 
 function saveData() {
+    // Look at saved scores from prior games
+    var lastScore = JSON.parse(localStorage.getItem("quizData"));
+    // Print data if it exists
+    if (lastScore !== null) {
+        console.log("Stored initials is", lastScore[0].initials);
+        console.log("Stored score is", lastScore[0].score);
+    }
+    // Save scores from this recent Game
     const initials = document.getElementById("initials").value;
     const score = timer; // Highscore for this game
 
-    // highscores is dynamic array appending user initials and highscores
-    // make object holding the user initial and highscore
-    const highscores =
+    // recentScorre is an object - highscoresArr is a dynamic array appending user initials and highscores
+    const recentScore =
     {
         initials: initials,
         score: score
     };
 
-    // Convert the object highscores to a JSON string
-    const jsonData = JSON.stringify(highscores);
-    console.log("Setting localStorage now look at debugger for key", jsonData)
-    // Save the data to localStorage
-    localStorage.setItem("quizData", jsonData);
-    debugger;
-}
+    var highscoresArr = JSON.parse(window.localStorage.getItem('quizData')) || [];
+    highscoresArr.push(recentScore);
 
+    const jsonData = JSON.stringify(highscoresArr);
+    console.log("Setting localStorage now look at debugger for key", jsonData)
+    localStorage.setItem("quizData", jsonData);
+}
 
 saveBtn.addEventListener("click", function (event) {
     event.preventDefault();
@@ -243,34 +249,46 @@ saveBtn.addEventListener("click", function (event) {
 });
 
 function displayHighScores() {
-    console.log("Display High Scores")
     endPage.setAttribute("class", "hide");
     highScorePage.setAttribute("class", "show");
     scoreTimer.setAttribute("class", "hide");
-    // Display all high scores
+
     // Get data from localStorage
     const jsonData = localStorage.getItem("quizData");
     console.log("jsonData quizData is ", jsonData)
+
     // Convert the JSON string to an object
     const data = JSON.parse(jsonData);
-    if (!data) {
-        console.log("no data retreived from JSON.parse")
-        data = {
-            initials: "John Doe",
-            score: 44,
+    // If there is data to display, retreive it and append to resultEl
+    if (data) {
+        // Sort the ddata from highest score to lowest
+        const sortedData = data.sort(function (a, b) {
+            return b.score - a.score;
+        });
+        debugger;
+        // Output initials and score to web page
+        for (let i = 0; i < sortedData.length; i++) {
+            const initials = document.createElement("span");
+            const score = document.createElement("span");
+
+            initials.innerText = (i + 1) + ". " + sortedData[i].initials + " - ";
+            score.innerText = sortedData[i].score;
+            resultEl.appendChild(initials);
+            resultEl.appendChild(score);
+            resultEl.appendChild(document.createElement("br"));
+            resultEl.setAttribute("class", "flexrow result");
+
+        }
+
+    } else {
+        // No data to display, remove all children under resultEl
+        while (resultEl.firstChild) {
+            resultEl.removeChild(resultEl.firstChild);
         }
     }
-    // Output initials and score
-    initialsEl.innerText = data.initials + " - ";
-    // if (initialsEl.innerText !== "") {
-    //     var newItem = $("<li>").text(initialsEl);
-    //     resultEl.append(newItem);
-    // }
-
-    scoreEl.innerText = data.score;
-    console.log(data.initials); // logs the initials
-    console.log(data.score); // logs the score
 }
+
+
 
 
 resetBtn.addEventListener("click", function (event) {
@@ -282,13 +300,14 @@ resetBtn.addEventListener("click", function (event) {
     var userAction = choice.innerHTML;
     console.log("User wants to ", userAction);
     highScorePage.setAttribute("class", "hide");
-
-    if (userAction = "Go Back") {
+    debugger;
+    if (userAction === "Go Back") {
         console.log("Go Back to start of game")
         init();
-    } else if (userAction = "Clear High Scores") {
+    } else if (userAction === "Clear High Scores") {
         //CLEAR HIGH SCORES
         console.log("Add code to clear high scores")
+        window.localStorage.clear();
         displayHighScores();
     }
 });
