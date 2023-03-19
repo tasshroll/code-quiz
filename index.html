@@ -10,79 +10,82 @@
 </head>
 
 <body>
-    <header class="header-class" id="score-timer">
-        <a href="" id="high-scores" class="high-scores">View High Scores</a>
-        <p class="timer" id="timer">Timer :</p>
-    </header>
+    <div class="wrapper">
+        <header class="header-class" id="score-timer">
+            <a href="" id="high-scores" class="high-scores">View High Scores</a>
+            <p class="timer" id="timer">Timer :</p>
+        </header>
 
-    <section class="container flex-column" id="start-page">
-        <!--Start Page-->
-        <div class="choices-class">
+        <section class="container flex-column" id="start-page">
+            <!--Start Page-->
+            <div class="choices-class">
 
-            <h1 class="question-class">Coding Quiz Challenge </h1>
-            <p class="choices-class"> Try to answer the following code related questions within the time limit. <br>
-                Keep in mind that incorrect answers will penalize your score/time by ten seconds!
-            </p>
-            <div>
-                <button class="button-choices start-quiz" id="start">Start Quiz</button>
+                <h1 class="question-class">Coding Quiz Challenge </h1>
+                <p class="choices-class"> Try to answer the following code related questions within the time limit. <br>
+                    Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+                </p>
+                <div>
+                    <button class="button-choices start-quiz" id="start">Start Quiz</button>
+                </div>
             </div>
-        </div>
 
-    </section>
+        </section>
 
 
-    <section id="middle-page">
-        <!--Middle Quiz Page-->
+        <section id="middle-page">
+            <!--Middle Quiz Page-->
 
-        <div class="container">
+            <div class="container">
 
-            <main class="game-choice-class" id="choices">
-                <h1 class="question-class" id="current-question">Question</h1>
-                <ol>
-                    <p class="button-choices" data-number="1" id="choice-1"></p>
-                    <p class="button-choices" data-number="2" id="choice-2"></p>
-                    <p class="button-choices" data-number="3" id="choice-3"></p>
-                    <p class="button-choices" idata-number="4" id="choice-4"></p>
-                </ol>
-                <h2 id="response"></h2>
+                <main class="game-choice-class" id="choices">
+                    <h1 class="question-class" id="current-question">Question</h1>
+                    <ol>
+                        <p class="button-choices" data-number="1" id="choice-1"></p>
+                        <p class="button-choices" data-number="2" id="choice-2"></p>
+                        <p class="button-choices" data-number="3" id="choice-3"></p>
+                        <p class="button-choices" idata-number="4" id="choice-4"></p>
+                    </ol>
+                    <h2 id="response"></h2>
 
-            </main>
-        </div>
-    </section>
-
-    <section class="container" id="end-page">
-        <div class="choices-class align-left">
-            <!--Results of Game Page-->
-            <h1 class="question-class"> All Done! </h1>
-
-            <div class="flex-row">
-                <p class="question-class">Your final score is : </p>
-                <p class="question-class" id="time-left"></p>
+                </main>
             </div>
-            <div class="flex-row">
+        </section>
 
-                <p class="question-class"> Enter Initials </p>
-                <input type="text" id="initials"></input>
-                <button class="start-quiz" id="save">Submit</button>
+        <section class="container" id="end-page">
+            <div class="choices-class align-left">
+                <!--Results of Game Page-->
+                <h1 class="question-class"> All Done! </h1>
 
-            </div>
-        </div>
-    </section>
+                <div class="flex-row">
+                    <p class="question-class">Your final score is : </p>
+                    <p class="question-class" id="time-left"></p>
+                </div>
+                <div class="flex-row">
 
-    <section class="container" id="high-score-page">
-        <div class="hs-class game-choice-class">
-            <!--High Scores Page-->
-            <h1>High Scores</h1>
-            <div class="flex-row result" id="result">
-                <!-- <p class="result-initials" id="initials2"></p>
-                <p class="result-score" id="score"></p> -->
+                    <p class="question-class"> Enter Initials </p>
+                    <input type="text" id="initials"></input>
+                    <button class="start-quiz" id="save">Submit</button>
+
+                </div>
             </div>
-            <div id="re-set">
-                <button class="end-quiz" id="reset">Go Back</button>
-                <button class="end-quiz" id="clear-high-scores">Clear High Scores</button>
+        </section>
+
+        <section class="container" id="high-score-page">
+            <div class="hs-class game-choice-class">
+                <!--High Scores Page-->
+                <h1>High Scores</h1>
+                <div class="flex-row result" id="result">
+                    <!-- This is where user INITIALS and SCORE will be appended-->
+                    <!--                                                       -->
+                </div>
+                <div id="re-set">
+                    <!--Reset Page-->
+                    <button class="end-quiz" id="reset">Go Back</button>
+                    <button class="end-quiz" id="clear-high-scores">Clear High Scores</button>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </body>
 <script src="script.js"></script>
 

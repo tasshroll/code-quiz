@@ -21,8 +21,6 @@
 // WHEN the game is over
 // THEN I can save my initials and my score
 
-//Global variables
-
 
 // Questions with choices and correct answer in an object property
 let questions = [
@@ -259,6 +257,7 @@ function displayHighScores() {
 
     // Convert the JSON string to an object
     const data = JSON.parse(jsonData);
+    resultEl.innerHTML = "";
     // If there is data to display, retreive it and append to resultEl
     if (data) {
         // Sort the ddata from highest score to lowest

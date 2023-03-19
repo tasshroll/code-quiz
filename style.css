@@ -1,6 +1,44 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/* html, */
+/* body, */
+.wrapper {
+    height: 100%;
+    margin: 0;
+    max-width: auto;
+    padding-top: 5rem, 20rem, 5rem, 20rem;
+}
+
+
 body {
+    font-family: sans-serif;
+    background-color: #f9fbfd;
     color: #000;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* body {
+    color: #000;
+} */
 
 #start {
     display: block;
@@ -19,6 +57,8 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    max-width: auto;
+
 }
 
 .container {
@@ -47,6 +87,7 @@ body {
     font-size: 3rem;
     min-width: 80rem;
 }
+
 .hs-class {
     display: flex;
     flex-direction: column;
@@ -74,6 +115,7 @@ body {
     padding: 2rem;
     margin: 2rem;
 }
+
 .end-quiz {
     min-width: 20rem;
     min-height: 1rem;
@@ -95,10 +137,10 @@ body {
 .button-choices {
     /* cursor: grab; */
     min-height: 1rem;
-    min-width: 80rem;
+    min-width: 70rem;
     background-color: rgb(96, 1, 112);
     color: white;
-    font-size: 30px;
+    font-size: 3rem;
     border-radius: 10px;
     padding: 2rem;
     margin: 2rem;
@@ -124,12 +166,12 @@ body {
 }
 
 .game-choice-class {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 .timer {
-    font-size: 2rem;
-    padding-right: 80px;
+    font-size: 3rem;
+    padding-right: 10rem;
 }
 
 #response {
@@ -147,8 +189,8 @@ body {
 }
 
 .high-scores {
-    font-size: 2rem;
-    padding-left: 30px;
+    font-size: 3rem;
+    padding-left: 5rem;
 }
 
 .flex-row {
@@ -183,8 +225,31 @@ input[type="text"] {
         width: 100%;
     }
 
+    .wrapper {
+        padding-top: none;
+    }
+
+    .high-scores {
+        font-size: 2rem;
+        padding: none;
+    }
+    .timer {
+        font-size: 2rem;
+        padding-right: 3rem;
+    }
+
     .button-choices {
-        min-width: 50rem;
+        min-width: 40rem;
+        min-height: 1rem;
+        font-size: 2rem;
+    }
+    
+    .question-class {
+        font-size: smaller;
+    }
+    .choices-class {
+        padding-left: 0;
+        min-width: none;
     }
 }
 
@@ -194,7 +259,30 @@ input[type="text"] {
         width: 100%
     }
 
+    .wrapper {
+        padding-top: none;
+    }
+
+    .high-scores {
+        font-size: 2rem;
+        padding: none;
+    }
+
+    .timer {
+        font-size: 2rem;
+        padding-right: 3rem;
+    }
     .button-choices {
-        min-width: 40rem;
+        min-width: 30rem;
+        min-height: 1rem;
+        font-size: 2rem;
+    }
+    .question-class {
+        font-size: smaller;
+    }
+
+    .choices-class {
+        padding-left: 0;
+        min-width: none;
     }
 }
