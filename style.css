@@ -8,8 +8,6 @@ html {
     font-size: 62.5%;
 }
 
-/* html, */
-/* body, */
 .wrapper {
     height: 100%;
     margin: 0;
@@ -23,23 +21,7 @@ body {
     background-color: #f9fbfd;
     color: #000;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* body {
-    color: #000;
-} */
-
+/* 
 #start {
     display: block;
 }
@@ -50,15 +32,14 @@ body {
 
 #end {
     display: block;
-}
+} */
 
 .header-class {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    max-width: auto;
-
+    /* max-width: 80rem; */
 }
 
 .container {
@@ -97,7 +78,8 @@ body {
     background: white;
     font-size: 3rem;
     min-width: 80rem;
-    padding-left: 100px;
+    /* padding-left: 30rem; */
+    padding: 1rem;
 }
 
 .align-left {
@@ -116,12 +98,12 @@ body {
     margin: 2rem;
 }
 
-.end-quiz {
+.end-quiz-button {
     min-width: 20rem;
     min-height: 1rem;
     background-color: rgb(96, 1, 112);
     color: white;
-    font-size: 30px;
+    font-size: 3rem;
     border-radius: 10px;
     padding: 2rem;
     margin: 2rem;
@@ -185,12 +167,15 @@ body {
 }
 
 .show {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
 }
 
 .high-scores {
     font-size: 3rem;
-    padding-left: 5rem;
+    padding-left: 2rem;
 }
 
 .flex-row {
@@ -233,6 +218,7 @@ input[type="text"] {
         font-size: 2rem;
         padding: none;
     }
+
     .timer {
         font-size: 2rem;
         padding-right: 3rem;
@@ -243,13 +229,27 @@ input[type="text"] {
         min-height: 1rem;
         font-size: 2rem;
     }
-    
+
     .question-class {
         font-size: smaller;
     }
+
     .choices-class {
-        padding-left: 0;
+        padding-left: .5rem;
+        padding-top: .5rem;
         min-width: none;
+    }
+
+    .hs-class {
+        /* display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        width: 100%;
+        background: white;
+        min-width: 80rem; */
+        font-size: 2rem;
+        padding-left: 2rem;
     }
 }
 
@@ -272,17 +272,32 @@ input[type="text"] {
         font-size: 2rem;
         padding-right: 3rem;
     }
+
     .button-choices {
         min-width: 30rem;
         min-height: 1rem;
         font-size: 2rem;
     }
+
     .question-class {
         font-size: smaller;
     }
 
     .choices-class {
-        padding-left: 0;
+        padding-left: .5rem;
+        padding-top: .5rem;
         min-width: none;
+    }
+
+    .hs-class {
+        /* display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        width: 100%;
+        background: white;
+        min-width: 80rem; */
+        font-size: 2rem;
+        padding-left: 2rem;
     }
 }
