@@ -131,10 +131,10 @@ function init() {
 
 
 // Listen for "View High Scores" to be clicked
-highScoresLink.addEventListener("click", function(event) {
-  event.preventDefault(); 
-  startPage.setAttribute("class", "hide");
-  displayHighScores(); 
+highScoresLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    startPage.setAttribute("class", "hide");
+    displayHighScores();
 });
 
 
@@ -157,10 +157,14 @@ function startTimer() {
         timerEl.innerText = "Timer: " + timer;
         console.log("Timer El is ", timerEl);
         //stop game if timer reaches 0 or end of game
-        if (timer <= 0 || end) {
+        if (timer <= 0) {
             clearInterval(timerInterval);
             end = true;
             middlePage.setAttribute("class", "hide");
+            // endGame;
+            displayHighScores();
+        } else if (timer >0 && end) {
+            clearInterval(timerInterval);
             endGame;
         }
     }, 1000)
@@ -216,7 +220,7 @@ choiceBtn.addEventListener("click", function (event) {
 
 
 function endGame() {
-    //Display the ending page with score/timer and prompt for user to enter their initials
+    //Display the ending page with score/timer 
     endPage.setAttribute("class", "show");
     highScorePage.setAttribute("class", "hide");
     console.log("end game")
@@ -227,7 +231,7 @@ function endGame() {
 
 function saveData() {
     const initials = document.getElementById("initials").value;
-    const score = timer; 
+    const score = timer;
     // recentScore is an object with user initials and score from this quiz
     const recentScore =
     {
@@ -235,15 +239,15 @@ function saveData() {
         score: score,
     };
 
-// highscoresArr is a dynamic array containing user initials and highscores from PRIOR games
-// Retreive local storage into highscoresArr and push the user initials and score from this quiz to end of array
+    // highscoresArr is a dynamic array containing user initials and highscores from PRIOR games
+    // Retreive local storage into highscoresArr and push the user initials and score from this quiz to end of array
     var highscoresArr = JSON.parse(window.localStorage.getItem('quizData')) || [];
     highscoresArr.push(recentScore);
 
     const jsonData = JSON.stringify(highscoresArr);
     localStorage.setItem("quizData", jsonData);
     console.log("Setting localStorage, look at debugger for key and new data", jsonData)
-// clear user input text area
+    // clear user input text area
     initialsEl.innerHTML = "";
 }
 
@@ -256,6 +260,8 @@ saveBtn.addEventListener("click", function (event) {
     // Save data and display scores
     saveData();
     displayHighScores();
+    initialsEl.innerHTML = "";
+
 });
 
 function displayHighScores() {
