@@ -163,7 +163,7 @@ function startTimer() {
             middlePage.setAttribute("class", "hide");
             // endGame;
             displayHighScores();
-        } else if (timer >0 && end) {
+        } else if (timer > 0 && end) {
             clearInterval(timerInterval);
             endGame;
         }
@@ -247,8 +247,9 @@ function saveData() {
     const jsonData = JSON.stringify(highscoresArr);
     localStorage.setItem("quizData", jsonData);
     console.log("Setting localStorage, look at debugger for key and new data", jsonData)
+    debugger;
     // clear user input text area
-    initialsEl.innerHTML = "";
+    initialsEl.textContent = "";
 }
 
 
@@ -260,7 +261,7 @@ saveBtn.addEventListener("click", function (event) {
     // Save data and display scores
     saveData();
     displayHighScores();
-    initialsEl.innerHTML = "";
+    initialsEl.textContent = "";
 
 });
 

@@ -13,16 +13,16 @@ https://github.com/tasshroll/code-quiz
 SCREENSHOTS of application beginning, middle, end, and highscores page
 
 Start Page
-![Screenshot of application start page.](./Assets/CodeQuiz-StartPage.png)
+![Screenshot of application start page.](./Assets/img/CodeQuiz-StartPage.png)
 
 Middle Page
 ![Screenshot of application middle page.](./Assets/CodeQuiz-MiddlePage.png)
 
 End Page
-![Screenshot of application end page.](./Assets/CodeQuiz-EndPage.png)
+![Screenshot of application end page.](./Assets/img/CodeQuiz-EndPage.png)
 
 High Scores Page
-![Screenshot of application high score page.](./Assets/CodeQuiz-HighScoresPage.png)
+![Screenshot of application high score page.](./Assets/img/CodeQuiz-HighScoresPage.png)
 
 ## Description
 This Application generates a timed coding quiz with multiple-choice questions. This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript 
