@@ -192,8 +192,8 @@ function checkAnswer() {
     } else {
         console.log("Wrong answer")
         responseEl.innerText = "Wrong!";
-        // Take off 10 seconds for wrong answer
-        timer = timer - 10;
+        // Commenting out this: take off 10 seconds for wrong answer
+        // timer = timer - 10;
     }
 }
 
